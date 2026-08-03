@@ -85,7 +85,7 @@ $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatt
 $cred = Get-Credential
 Register-ScheduledTask -TaskName "PwdExpiryCheck" -Action $action -Trigger $trigger -Settings $settings -User $cred.UserName -Password $cred.GetNetworkCredential().Password -RunLevel Highest
 ```
-Adjust these settings if needed.
+Adjust these settings in the windows task scheduler if needed.
 
 ## Project structure
 

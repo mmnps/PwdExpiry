@@ -11,7 +11,7 @@
     Version:        1.3
     Last Update:    03.08.2026
     Author:         https://github.com/mmnps
-    Requirements:   Powershell version 5.1 or higher, PS AcriveDirectory module
+    Requirements:   Powershell version 5.1 or higher, PowerShell Active Directory module
 #>
 
 #########################

@@ -10,7 +10,7 @@
 .NOTES
     Version:        1.2
     Requirements:   Powershell version 5.1 or higher, PS AcriveDirectory module
-    Author:         mmnps
+    Author:         https://github.com/mmnps
 #>
 
 #########################

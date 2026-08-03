@@ -75,12 +75,16 @@ The script automatically uses `$env:PWEXPIRE_CLIENT_SECRET` if `MailConfig.Clien
 
 ## Usage
 
-```powershell
-.\PwdExpiry.ps1
-```
-
 For regular operation, a daily task in Windows Task Scheduler is recommended.
 
+```powershell
+$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument '-NoProfile -ExecutionPolicy Bypass -File "C:\Scripts\PwdExpiry\PwdExpiry.ps1"'
+$trigger = New-ScheduledTaskTrigger -Daily -At 8:00AM
+$settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
+$principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest
+Register-ScheduledTask -TaskName "PwdExpiryCheck" -Action $action -Trigger $trigger -Settings $settings -Principal $principal
+```
+Adjust these settings if needed.
 
 ## Project structure
 

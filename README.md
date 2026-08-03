@@ -21,6 +21,8 @@ PowerShell script that finds Active Directory users whose password is about to e
 
 ## Installation
 
+Start powershell and execute the following commands:
+
 ```powershell
 mkdir C:\Scripts\
 cd C:\Scripts\

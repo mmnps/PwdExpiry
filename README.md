@@ -82,7 +82,6 @@ Create the task using the windows task scheduler or run this powershell commands
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument '-NoProfile -ExecutionPolicy Bypass -File "C:\Scripts\PwdExpiry\PwdExpiry.ps1"'
 $trigger = New-ScheduledTaskTrigger -Daily -At 8:00AM
 $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
-$principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest
 $cred = Get-Credential
 Register-ScheduledTask -TaskName "PwdExpiryCheck" -Action $action -Trigger $trigger -Settings $settings -User $cred.UserName -Password $cred.GetNetworkCredential().Password -RunLevel Highest
 ```

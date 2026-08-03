@@ -27,6 +27,15 @@ cd C:\Scripts\
 git clone --depth 1 https://github.com/mmnps/PwdExpiry
 ```
 
+## Update
+
+Update the script using the following commands:
+
+```powershell
+cd C:\Scripts\PwdExpiry
+git pull
+```
+
 Then fill in `Settings\config.psd1` with your own values (see below).
 
 ## Configuration (`Settings/config.psd1`)

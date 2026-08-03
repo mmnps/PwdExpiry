@@ -27,6 +27,8 @@ cd C:\Scripts\
 git clone --depth 1 https://github.com/mmnps/PwdExpiry
 ```
 
+Then fill in `Settings\config.psd1` with your own values (see below).
+
 ## Update
 
 Update the script using the following commands:
@@ -35,8 +37,6 @@ Update the script using the following commands:
 cd C:\Scripts\PwdExpiry
 git pull
 ```
-
-Then fill in `Settings\config.psd1` with your own values (see below).
 
 ## Configuration (`Settings/config.psd1`)
 

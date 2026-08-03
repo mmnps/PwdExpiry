@@ -96,3 +96,10 @@ Adjust these settings in the windows task scheduler if needed.
 - `Settings/config.psd1` is excluded from version control via `.gitignore` because it can contain secrets (client secret). Only `config.psd1.example` (without real values) is committed.
 - Grant the app registration only the minimally required permission (`Mail.Send`).
 - Prefer providing the client secret via the `PWEXPIRE_CLIENT_SECRET` environment variable instead of the configuration file.
+
+
+## Changelog
+
+### 03.08.2026
+
+Users can now create their own mail template by editing the Template.html in the Settings folder.

@@ -76,7 +76,7 @@ The script automatically uses `$env:PWEXPIRE_CLIENT_SECRET` if `MailConfig.Clien
 ## Usage
 
 For regular operation, a daily task in Windows Task Scheduler is recommended.
-Create the task using the windows task scheduler or run this powershell commands:
+Create the task using the windows task scheduler or run this powershell commands as administrator:
 
 ```powershell
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument '-NoProfile -ExecutionPolicy Bypass -File "C:\Scripts\PwdExpiry\PwdExpiry.ps1"'

@@ -87,18 +87,6 @@ Register-ScheduledTask -TaskName "PwdExpiryCheck" -Action $action -Trigger $trig
 ```
 Adjust these settings in the windows task scheduler if needed.
 
-## Project structure
-
-```
-PwdExpiry.ps1                  Main script
-Functions/
-  Microsoft-Graph.ps1          Token acquisition & mail sending via Graph
-  Mail-Body.ps1                HTML template for the notification email
-  Write-Log.ps1                Logging function
-Settings/
-  config.psd1.example          Configuration template (no secrets, tracked by Git)
-  config.psd1                  Local configuration (ignored by Git)
-```
 
 ## Security notes
 

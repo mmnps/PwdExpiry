@@ -27,7 +27,7 @@ If git isn't insalled, install is using:
 winget install --id Git.Git -e --source winget
 ```
 
-Start powershell and execute the following commands:
+Start a new powershell and execute the following commands:
 
 ```powershell
 mkdir C:\Scripts\

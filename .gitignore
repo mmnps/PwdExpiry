@@ -1,6 +1,7 @@
-# Local configuration containing secrets (Tenant/Client ID, Client Secret)
-Settings/config.psd1
 
-# Log files
+Settings/config.psd1
+Settings/Template.html
+
+
 Logs/
 *.log

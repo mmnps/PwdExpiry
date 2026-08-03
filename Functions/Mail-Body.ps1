@@ -11,9 +11,7 @@ function New-ExpiryMailBody {
 
     $template = Get-Content -Path $TemplatePath -Raw -Encoding UTF8
 
-    $body = $template `
-        -replace '\{\{Name\}\}', $Name `
-        -replace '\{\{DaysToExpire\}\}', $DaysToExpire
+    $body = $template.Replace('{{Name}}', $Name).Replace('{{DaysToExpire}}', [string]$DaysToExpire)
 
     return $body
 }

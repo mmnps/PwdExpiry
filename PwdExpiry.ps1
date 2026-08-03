@@ -8,7 +8,7 @@
     If so, an email is sent to the user via the Graph API.
 
 .NOTES
-    Version:        1.3
+    Version:        1.4
     Last Update:    03.08.2026
     Author:         https://github.com/mmnps
     Requirements:   Powershell version 5.1 or higher, PowerShell Active Directory module

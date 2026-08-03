@@ -163,7 +163,7 @@ foreach ($User in $Users) {
                 $TokenAcquiredAt = Get-Date
             }
 
-            $MailBodyHtml = New-ExpiryMailBody -Name $Name -DaysToExpire $DayToExpire
+            $MailBodyHtml = New-ExpiryMailBody -Name $Name -DaysToExpire $DayToExpire -TemplatePath "$PSScriptRoot\Settings\Template.html"
             Send-GraphMail -AccessToken $AccessToken -FromUser $FromUser -ToUser $MailAddress `
                 -Subject "Your password is going to expire in $DayToExpire day(s)" -BodyHtml $MailBodyHtml
 

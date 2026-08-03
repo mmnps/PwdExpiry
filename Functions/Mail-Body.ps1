@@ -1,13 +1,19 @@
 function New-ExpiryMailBody {
     param(
         [Parameter(Mandatory)][string]$Name,
-        [Parameter(Mandatory)][int]$DaysToExpire
+        [Parameter(Mandatory)][int]$DaysToExpire,
+        [Parameter(Mandatory)][string]$TemplatePath
     )
 
-    return @"
-<p>Dear $Name,</p>
-<p>Your password is going to expire in $DaysToExpire day(s). Please change it as soon as possible.</p>
-<br>
-<p>Thanks,<br>Your IT-Team</p>
-"@
+    if (-not (Test-Path $TemplatePath)) {
+        throw "Template not found: $TemplatePath"
+    }
+
+    $template = Get-Content -Path $TemplatePath -Raw -Encoding UTF8
+
+    $body = $template `
+        -replace '\{\{Name\}\}', $Name `
+        -replace '\{\{DaysToExpire\}\}', $DaysToExpire
+
+    return $body
 }

@@ -21,6 +21,12 @@ PowerShell script that finds Active Directory users whose password is about to e
 
 ## Installation
 
+If git isn't insalled, install is using:
+
+```powershell
+winget install --id Git.Git -e --source winget
+```
+
 Start powershell and execute the following commands:
 
 ```powershell

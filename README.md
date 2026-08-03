@@ -24,7 +24,7 @@ PowerShell script that finds Active Directory users whose password is about to e
 ```powershell
 mkdir C:\Scripts\
 cd C:\Scripts\
-git clone https://github.com/mmnps/PwdExpiry
+git clone --depth 1 https://github.com/mmnps/PwdExpiry
 ```
 
 Then fill in `Settings\config.psd1` with your own values (see below).

@@ -164,8 +164,7 @@ foreach ($User in $Users) {
             }
 
             $MailBodyHtml = New-ExpiryMailBody -Name $Name -DaysToExpire $DayToExpire -TemplatePath "$PSScriptRoot\Settings\Template.html"
-            Send-GraphMail -AccessToken $AccessToken -FromUser $FromUser -ToUser $MailAddress `
-                -Subject "Your password is going to expire in $DayToExpire day(s)" -BodyHtml $MailBodyHtml
+            Send-GraphMail -AccessToken $AccessToken -FromUser $FromUser -ToUser $MailAddress -Subject "Your password is going to expire in $DayToExpire day(s)" -BodyHtml $MailBodyHtml
 
             Write-Log -Level INFO -Text "Sent expiry notice to '$Name' ($MailAddress), $DayToExpire day(s) left." -ToConsole
             $SentCount++
@@ -190,7 +189,5 @@ if ($ErrorCount -gt 0) {
 ###   Cleanup logs   ###
 ########################
 if (Test-Path -Path $LogPath) {
-    Get-ChildItem -Path $LogPath -Filter '*.log' -File |
-        Where-Object { $_.LastWriteTime -lt (Get-Date).AddDays(-$KeepLogsDays) } |
-        Remove-Item -Force
+    Get-ChildItem -Path $LogPath -Filter '*.log' -File | Where-Object { $_.LastWriteTime -lt (Get-Date).AddDays(-$KeepLogsDays) } | Remove-Item -Force
 }

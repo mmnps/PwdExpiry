@@ -8,7 +8,7 @@
 
 .NOTES
     Version:        1.5
-    Last Update:    03.08.2026
+    Last Update:    07.08.2026
     Author:         https://github.com/mmnps
     Requirements:   Powershell version 5.1 or higher, PowerShell Active Directory module
 #>

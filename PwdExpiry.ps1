@@ -36,7 +36,7 @@ $FromUser = $Config.MailConfig.FromUser
 $EnableLogging = $Config.LogConfig.EnableLogging
 $LogPath = $Config.LogConfig.LogPath
 $KeepLogsDays = $Config.LogConfig.KeepLogsDays
-$DeleteLogs = $Config.LogConfig.$DeleteLogs
+$DeleteLogs = $Config.LogConfig.DeleteLogs
 $LogName = "$(Get-Date -Format 'yyyy-MM-dd').log"
 
 

@@ -101,6 +101,10 @@ Adjust these settings in the windows task scheduler if needed.
 
 ## Changelog
 
+### 07.08.2026
+
+Added a function to automatically delete the log files.
+
 ### 03.08.2026
 
 Users can now create their own mail template by editing the Template.html in the Settings folder.

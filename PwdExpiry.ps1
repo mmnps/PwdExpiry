@@ -1,4 +1,3 @@
-#Requires -Version 5.1
 <#
 .SYNOPSIS
     Sends an email notification via Microsoft Graph when an Active Directory user's password is about to expire.
@@ -13,6 +12,8 @@
     Author:         https://github.com/mmnps
     Requirements:   Powershell version 5.1 or higher, PowerShell Active Directory module
 #>
+
+#Requires -Version 5.1
 
 #########################
 ###   Configuration   ###

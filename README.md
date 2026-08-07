@@ -55,15 +55,16 @@ Since `Settings\config.psd1` is not tracked by Git, your local settings are pres
 
 ## Configuration (`Settings/config.psd1`)
 
-| Key                            | Description                                                                 |
-|---------------------------------|-------------------------------------------------------------------------------|
-| `ExpireDays`                    | Number of days before expiry at which the notification is sent               |
-| `MailConfig.TenantId`           | Azure AD tenant ID                                                           |
-| `MailConfig.ClientId`           | App registration (client) ID                                                 |
+| Key                             | Description                                                                 |
+|---------------------------------|-----------------------------------------------------------------------------|
+| `ExpireDays`                    | Number of days before expiry at which the notification is sent              |
+| `MailConfig.TenantId`           | Azure AD tenant ID                                                          |
+| `MailConfig.ClientId`           | App registration (client) ID                                                |
 | `MailConfig.ClientSecret`       | App registration client secret (optional, see below)                        |
 | `MailConfig.FromUser`           | Sender mailbox, e.g. `support@company.com`                                  |
-| `LogConfig.EnableLogging`       | Enable logging (`$true`/`$false`)                                            |
-| `LogConfig.LogPath`             | Directory for log files (blank = a `Logs` folder next to the script)         |
+| `LogConfig.EnableLogging`       | Enable logging (`$true`/`$false`)                                           |
+| `LogConfig.LogPath`             | Directory for log files (blank = a `Logs` folder next to the script)        |
+| `LogConfig.DeleteLogs`          | Delete log files automatically (`$true`/`$false`)                           |
 | `LogConfig.KeepLogsDays`        | Number of days after which log files are deleted                            |
 
 ### Client secret without plaintext in the file

@@ -71,16 +71,6 @@ The script automatically uses `$env:PWEXPIRE_CLIENT_SECRET` if `MailConfig.Clien
 ## Usage
 
 For regular operation, a daily task in Windows Task Scheduler is recommended.
-Create the task using the windows task scheduler or run this powershell commands as administrator:
-
-```powershell
-$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument '-NoProfile -ExecutionPolicy Bypass -File "C:\Scripts\PwdExpiry\PwdExpiry.ps1"'
-$trigger = New-ScheduledTaskTrigger -Daily -At 8:00AM
-$settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
-$cred = Get-Credential
-Register-ScheduledTask -TaskName "PwdExpiryCheck" -Action $action -Trigger $trigger -Settings $settings -User $cred.UserName -Password $cred.GetNetworkCredential().Password -RunLevel Highest
-```
-Adjust these settings in the windows task scheduler if needed.
 
 
 ## Security notes

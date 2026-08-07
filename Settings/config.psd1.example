@@ -13,6 +13,7 @@
     LogConfig = @{
         EnableLogging   = $true
         LogPath         = ""   # Folder for daily log files. Leave it blank to use a "Logs" folder next to the script.
+        DeleteLogs      = $true
         KeepLogsDays    = 14   # How many days the log files will be stored
     }
 }

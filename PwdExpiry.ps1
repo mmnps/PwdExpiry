@@ -35,6 +35,7 @@ $FromUser = $Config.MailConfig.FromUser
 $EnableLogging = $Config.LogConfig.EnableLogging
 $LogPath = $Config.LogConfig.LogPath
 $KeepLogsDays = $Config.LogConfig.KeepLogsDays
+$DeleteLogs = $Config.LogConfig.$DeleteLogs
 $LogName = "$(Get-Date -Format 'yyyy-MM-dd').log"
 
 
@@ -188,6 +189,6 @@ if ($ErrorCount -gt 0) {
 ########################
 ###   Cleanup logs   ###
 ########################
-if (Test-Path -Path $LogPath) {
+if ($DeleteLogs -and (Test-Path -Path $LogPath)) {
     Get-ChildItem -Path $LogPath -Filter '*.log' -File | Where-Object { $_.LastWriteTime -lt (Get-Date).AddDays(-$KeepLogsDays) } | Remove-Item -Force
 }

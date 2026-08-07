@@ -2,15 +2,6 @@
 
 PowerShell script that finds Active Directory users whose password is about to expire and notifies them by email via Microsoft Graph.
 
-## How it works
-
-1. Loads the configuration from `Settings/config.psd1`.
-2. Obtains a Microsoft Graph access token via the client-credentials flow.
-3. Queries all enabled AD users whose password is not set to "never expires" and is not already expired.
-4. Calculates each user's expiry date based on the fine-grained (or domain) password policy.
-5. Sends an HTML email via Graph (`sendMail`) to users whose password expires within `ExpireDays`.
-6. Writes log entries and cleans up old log files.
-
 ## Requirements
 
 - Windows with PowerShell 5.1 or higher

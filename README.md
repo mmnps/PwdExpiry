@@ -30,7 +30,7 @@ Copy-Item .\Settings\UserTemplate.html.example .\Settings\UserTemplate.html
 Copy-Item .\Settings\AdminTemplate.html.example .\Settings\AdminTemplate.html
 ```
 
-Then fill in `Settings\config.psd1` with your own values (see below). This file is excluded from version control via `.gitignore`, so it is never touched by `git pull`. 
+Then fill in `Settings\config.psd1` with your own values (see below).
 
 You can add a custom HTML template by editing the `Settings\Template.html`.
 

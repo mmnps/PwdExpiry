@@ -1,4 +1,4 @@
-# PwdExpiry
+# PwdExpiry - O365 version
 
 PowerShell script that finds Active Directory users whose password is about to expire and notifies them by email via Microsoft Graph.
 

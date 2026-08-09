@@ -1,21 +1,21 @@
 @{
-    ExpireDays          = 14   # How many days in advance the expiry email will be sent
+    ExpireDays          = 14        # How many days in advance the expiry email will be sent
+    CheckForUpdates     = $true     # If $true the script checks for updates and sends a notification email to the administrator
 
     MailConfig = @{
-        TenantId        = ""   # Azure AD Tenant ID
-        ClientId        = ""   # App registration (client) ID
-        ClientSecret    = ""   # App registration client secret. Set here or create the PWEXPIRE_CLIENT_SECRET environment variable:
-                               # [Environment]::SetEnvironmentVariable("PWEXPIRE_CLIENT_SECRET", "XXX", "Machine")
+        TenantId        = ""        # Azure AD Tenant ID
+        ClientId        = ""        # App registration (client) ID
+        ClientSecret    = ""        # App registration client secret. Set here or create the PWEXPIRE_CLIENT_SECRET environment variable:
 
-        FromUser        = ""   # Mailbox used as sender, e.g. support@company.com
+        FromUser        = ""        # Mailbox used as sender, e.g. support@company.com
         NotifyAdmin     = $true 
-        AdminMail       = ""   # Enter the email address of the administrator here. If an error occurs the admin will be notified
+        AdminMail       = ""        # Enter the email address of the administrator here. If an error occurs the admin will be notified
     }
 
     LogConfig = @{
         EnableLogging   = $true
-        LogPath         = ""   # Folder for daily log files. Leave it blank to use a "Logs" folder next to the script.
+        LogPath         = ""        # Folder for daily log files. Leave it blank to use a "Logs" folder next to the script.
         DeleteLogs      = $true
-        KeepLogsDays    = 14   # How many days the log files will be stored
+        KeepLogsDays    = 14        # How many days the log files will be stored
     }
 }

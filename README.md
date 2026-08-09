@@ -32,7 +32,7 @@ Copy-Item .\Settings\AdminTemplate.html.example .\Settings\AdminTemplate.html
 
 Then fill in `Settings\config.psd1` with your own values (see below).
 
-You can add a custom HTML template by editing the `Settings\Template.html`.
+You can create a custom HTML template by editing the `Settings\Template.html`.
 
 ## Update
 
@@ -48,6 +48,7 @@ git pull
 | Key                             | Description                                                                 |
 |---------------------------------|-----------------------------------------------------------------------------|
 | `ExpireDays`                    | Number of days before expiry at which the notification is sent              |
+| `CheckForUpdates`               | Automatically checks for updates                                            |
 | `MailConfig.TenantId`           | Azure AD tenant ID                                                          |
 | `MailConfig.ClientId`           | App registration (client) ID                                                |
 | `MailConfig.ClientSecret`       | App registration client secret (optional, see below)                        |
@@ -87,6 +88,7 @@ For regular operation, a daily task in Windows Task Scheduler is recommended.
 
 - A new feature has been added so that the admin is notified as soon as an error occurs while processing a user.
 - The notification for admin and user are now sent with importance `high`.
+- A new feature hast been added so that the script automatically checks for updates and notifies the administrator if an update is needed.
 - New files: `Settings\AdminTemplate.html.example`, `Functions\AdminMail-Body.ps1`
 - Renamed files: `Settings\Template.html.example` -> `Settings\UserTemplate.html.example`, `Functions\Mail-Body.ps1` -> `Functions\UserMailBody.ps1`
 

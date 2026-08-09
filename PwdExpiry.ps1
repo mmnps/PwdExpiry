@@ -24,22 +24,23 @@ $ErrorActionPreference = 'Stop'
 # Load config from config.psd1
 $Config = Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot 'Settings\config.psd1')
 
-$ExpireDays =   $Config.ExpireDays
+$ExpireDays =       $Config.ExpireDays
+$CheckForUpdates =  $Config.CheckForUpdates
 
 # Mail config
-$TenantId =     $Config.MailConfig.TenantId
-$ClientId =     $Config.MailConfig.ClientId
-$ClientSecret = if ($Config.MailConfig.ClientSecret) { $Config.MailConfig.ClientSecret } else { $env:PWEXPIRE_CLIENT_SECRET }
-$FromUser =     $Config.MailConfig.FromUser
-$NotifyAdmin =  $Config.MailConfig.NotifyAdmin
-$AdminMail =    $Config.MailConfig.AdminMail
+$TenantId =         $Config.MailConfig.TenantId
+$ClientId =         $Config.MailConfig.ClientId
+$ClientSecret =     if ($Config.MailConfig.ClientSecret) { $Config.MailConfig.ClientSecret } else { $env:PWEXPIRE_CLIENT_SECRET }
+$FromUser =         $Config.MailConfig.FromUser
+$NotifyAdmin =      $Config.MailConfig.NotifyAdmin
+$AdminMail =        $Config.MailConfig.AdminMail
 
 # Log config
-$EnableLogging = $Config.LogConfig.EnableLogging
-$LogPath =       $Config.LogConfig.LogPath
-$KeepLogsDays =  $Config.LogConfig.KeepLogsDays
-$DeleteLogs =    $Config.LogConfig.DeleteLogs
-$LogName =       "$(Get-Date -Format 'yyyy-MM-dd').log"
+$EnableLogging =    $Config.LogConfig.EnableLogging
+$LogPath =          $Config.LogConfig.LogPath
+$KeepLogsDays =     $Config.LogConfig.KeepLogsDays
+$DeleteLogs =       $Config.LogConfig.DeleteLogs
+$LogName =          "$(Get-Date -Format 'yyyy-MM-dd').log"
 
 
 ########################
@@ -77,6 +78,45 @@ if ($EnableLogging -and -not (Test-Path -Path $LogPath)) {
 . "$PSScriptRoot\Functions\Microsoft-Graph.ps1"
 . "$PSScriptRoot\Functions\UserMail-Body.ps1"
 . "$PSScriptRoot\Functions\AdminMail-Body.ps1"
+
+
+#############################
+###   Check for updates   ###
+#############################
+if ($CheckForUpdates) {
+    try {
+        if (-not (Test-Path (Join-Path $PSScriptRoot '.git'))) {
+            throw "No .git directory found in '$PSScriptRoot'. The script was probably not installed via 'git clone'."
+        }
+
+        $LocalCommit = git -C $PSScriptRoot rev-parse HEAD
+        $RemoteCommit = git -C $PSScriptRoot ls-remote origin HEAD | Select-Object -First 1 | ForEach-Object { ($_ -split "`t")[0] }
+
+        if (-not $LocalCommit -or -not $RemoteCommit) {
+            throw "Could not determine local or remote commit hash."
+        }
+
+        if ($LocalCommit -ne $RemoteCommit) {
+            Write-Log -Level INFO -Text "A new version of the script is available. Visit https://github.com/mmnps/PwdExpiry for infos." -ToConsole
+            if ($NotifyAdmin -and $AdminMail) {
+                try {
+                    $AccessToken = Get-GraphAccessToken -TenantId $TenantId -ClientId $ClientId -ClientSecret $ClientSecret
+                    $MailBodyHtml = Get-Content -Path (Join-Path $PSScriptRoot 'Settings\ScriptUpdate.html') -Raw
+                    Send-GraphMail -AccessToken $AccessToken -FromUser $FromUser -ToUser $AdminMail -Subject "A new version of the PwdExpiry script is available!" -BodyHtml $MailBodyHtml
+                }
+                catch {
+                    Write-Log -Level ERROR -Text "The update email cannot be sent, check the configuration: $($_.Exception.Message)"
+                }
+            }
+        }
+        else {
+            Write-Log -Level INFO -Text "The script is up to date."
+        }
+    }
+    catch {
+        Write-Log -Level WARN -Text "Update check failed, skipping: $($_.Exception.Message)"
+    }
+}
 
 
 ########################################

@@ -81,7 +81,7 @@ For regular operation, a daily task in Windows Task Scheduler is recommended.
 
 ## Changelog
 
-### 09.07.20296
+### 09.07.2026
 
 - A new feature has been added so that the admin is notified as soon as an error occurs while processing a user.
 - The notification for admin and user are now sent with importance `high`.

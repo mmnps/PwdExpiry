@@ -1,0 +1,3 @@
+<p>Dear Administrators,</p>
+<p>An error occurred during the processing of the user {{Name}}:</p>
+<p>{{ErrorMessage}}</p>

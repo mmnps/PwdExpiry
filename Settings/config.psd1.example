@@ -8,6 +8,8 @@
                                # [Environment]::SetEnvironmentVariable("PWEXPIRE_CLIENT_SECRET", "XXX", "Machine")
 
         FromUser        = ""   # Mailbox used as sender, e.g. support@company.com
+        NotifyAdmin     = $true 
+        AdminMail       = ""   # Enter the email address of the administrator here. If an error occurs the admin will be notified
     }
 
     LogConfig = @{

@@ -7,8 +7,8 @@
     If so, an email is sent to the user via the Graph API.
 
 .NOTES
-    Version:        1.5
-    Last Update:    07.08.2026
+    Version:        2.0
+    Last Update:    09.08.2026
     Author:         https://github.com/mmnps
     Requirements:   Powershell version 5.1 or higher, PowerShell Active Directory module
 #>
@@ -24,20 +24,22 @@ $ErrorActionPreference = 'Stop'
 # Load config from config.psd1
 $Config = Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot 'Settings\config.psd1')
 
-$ExpireDays = $Config.ExpireDays
+$ExpireDays =   $Config.ExpireDays
 
 # Mail config
-$TenantId = $Config.MailConfig.TenantId
-$ClientId = $Config.MailConfig.ClientId
+$TenantId =     $Config.MailConfig.TenantId
+$ClientId =     $Config.MailConfig.ClientId
 $ClientSecret = if ($Config.MailConfig.ClientSecret) { $Config.MailConfig.ClientSecret } else { $env:PWEXPIRE_CLIENT_SECRET }
-$FromUser = $Config.MailConfig.FromUser
+$FromUser =     $Config.MailConfig.FromUser
+$NotifyAdmin =  $Config.MailConfig.NotifyAdmin
+$AdminMail =    $Config.MailConfig.AdminMail
 
 # Log config
 $EnableLogging = $Config.LogConfig.EnableLogging
-$LogPath = $Config.LogConfig.LogPath
-$KeepLogsDays = $Config.LogConfig.KeepLogsDays
-$DeleteLogs = $Config.LogConfig.DeleteLogs
-$LogName = "$(Get-Date -Format 'yyyy-MM-dd').log"
+$LogPath =       $Config.LogConfig.LogPath
+$KeepLogsDays =  $Config.LogConfig.KeepLogsDays
+$DeleteLogs =    $Config.LogConfig.DeleteLogs
+$LogName =       "$(Get-Date -Format 'yyyy-MM-dd').log"
 
 
 ########################
@@ -73,7 +75,8 @@ if ($EnableLogging -and -not (Test-Path -Path $LogPath)) {
 #####################
 . "$PSScriptRoot\Functions\Write-Log.ps1"
 . "$PSScriptRoot\Functions\Microsoft-Graph.ps1"
-. "$PSScriptRoot\Functions\Mail-Body.ps1"
+. "$PSScriptRoot\Functions\UserMail-Body.ps1"
+. "$PSScriptRoot\Functions\AdminMail-Body.ps1"
 
 
 ########################################
@@ -116,7 +119,13 @@ catch {
     exit 1
 }
 
-$DefaultMaxPasswordAge = (Get-ADDefaultDomainPasswordPolicy).MaxPasswordAge
+try {
+    $DefaultMaxPasswordAge = (Get-ADDefaultDomainPasswordPolicy).MaxPasswordAge
+}
+catch {
+    Write-Log -Level ERROR -Text "An error occured while loading the domain password policy: $($_.Exception.Message)"
+    exit 1
+}
 
 
 ############################
@@ -165,14 +174,26 @@ foreach ($User in $Users) {
                 $TokenAcquiredAt = Get-Date
             }
 
-            $MailBodyHtml = New-ExpiryMailBody -Name $Name -DaysToExpire $DayToExpire -TemplatePath "$PSScriptRoot\Settings\Template.html"
+            $MailBodyHtml = New-ExpiryMailBody -Name $Name -DaysToExpire $DayToExpire -TemplatePath "$PSScriptRoot\Settings\UserTemplate.html"
             Send-GraphMail -AccessToken $AccessToken -FromUser $FromUser -ToUser $MailAddress -Subject "Your password is going to expire in $DayToExpire day(s)" -BodyHtml $MailBodyHtml
 
             Write-Log -Level INFO -Text "Sent expiry notice to '$Name' ($MailAddress), $DayToExpire day(s) left." -ToConsole
             $SentCount++
         }
         catch {
-            Write-Log -Level ERROR -Text "Failed to send expiry mail to '$Name' ($MailAddress): $($_.Exception.Message)" -ToConsole
+            $ErrorMessage = $_.Exception.Message
+            try {
+                if ($NotifyAdmin -and $AdminMail) {
+                    $AccessToken = Get-GraphAccessToken -TenantId $TenantId -ClientId $ClientId -ClientSecret $ClientSecret
+                    $MailBodyHtml = New-AdminNotification -Name $Name -ErrorMessage $ErrorMessage -TemplatePath "$PSScriptRoot\Settings\AdminTemplate.html"
+                    Send-GraphMail -AccessToken $AccessToken -FromUser $FromUser -ToUser $AdminMail -Subject "Failed to send expiry mail to '$Name'!" -BodyHtml $MailBodyHtml
+                }
+            }
+            catch {
+                Write-Log -Level ERROR -Text "An error occured while sending the admin notification: $($_.Exception.Message)"
+            }
+
+            Write-Log -Level ERROR -Text "Failed to send expiry mail to '$Name' ($MailAddress): $ErrorMessage" -ToConsole
             $ErrorCount++
         }
     }

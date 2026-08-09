@@ -1,4 +1,5 @@
 Settings/config.psd1
-Settings/Template.html
+Settings/UserTemplate.html
+Settings/AdminTemplate.html
 
 Logs/*.log

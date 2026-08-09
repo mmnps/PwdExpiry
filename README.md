@@ -12,7 +12,7 @@ PowerShell script that finds Active Directory users whose password is about to e
 
 ## Installation
 
-If git isn't insalled, install is using:
+If git isn't installed, install is using:
 
 ```powershell
 winget install --id Git.Git -e --source winget
@@ -26,7 +26,8 @@ cd C:\Scripts\
 git clone --depth 1 https://github.com/mmnps/PwdExpiry
 cd PwdExpiry
 Copy-Item .\Settings\config.psd1.example .\Settings\config.psd1
-Copy-Item .\Settings\Template.html.example .\Settings\Template.html
+Copy-Item .\Settings\UserTemplate.html.example .\Settings\UserTemplate.html
+Copy-Item .\Settings\AdminTemplate.html.example .\Settings\AdminTemplate.html
 ```
 
 Then fill in `Settings\config.psd1` with your own values (see below). This file is excluded from version control via `.gitignore`, so it is never touched by `git pull`. 
@@ -80,10 +81,17 @@ For regular operation, a daily task in Windows Task Scheduler is recommended.
 
 ## Changelog
 
+### 09.07.20296
+
+- A new feature has been added so that the admin is notified as soon as an error occurs while processing a user.
+- The notification for admin and user are now sent with importance `high`.
+- New files: `Settings\AdminTemplate.html.example`, `Functions\AdminMail-Body.ps1`
+- Renamed files: `Settings\Template.html.example` -> `Settings\UserTemplate.html.example`, `Functions\Mail-Body.ps1` -> `Functions\UserMailBody.ps1`
+
 ### 07.08.2026
 
-Added a function to automatically delete the log files.
+- Added a function to automatically delete the log files.
 
 ### 03.08.2026
 
-Users can now create their own mail template by editing the Template.html in the Settings folder.
+- Users can now create their own mail template by editing the Template.html in the Settings folder.

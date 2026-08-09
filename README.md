@@ -42,8 +42,6 @@ cd C:\Scripts\PwdExpiry
 git pull
 ```
 
-Since `Settings\config.psd1` is not tracked by Git, your local settings are preserved. If a future version changes `config.psd1.example` (e.g. adds a new setting), compare it against your local `config.psd1` and add the new key manually.
-
 ## Configuration (`Settings/config.psd1`)
 
 | Key                             | Description                                                                 |
@@ -75,7 +73,7 @@ For regular operation, a daily task in Windows Task Scheduler is recommended.
 
 ## Security notes
 
-- `Settings/config.psd1` is excluded from version control via `.gitignore` because it can contain secrets (client secret). Only `config.psd1.example` (without real values) is committed.
+- `Settings/config.psd1` is excluded from version control via `.gitignore` because it can contain secrets (client secret).
 - Grant the app registration only the minimally required permission (`Mail.Send`).
 - Prefer providing the client secret via the `PWEXPIRE_CLIENT_SECRET` environment variable instead of the configuration file.
 

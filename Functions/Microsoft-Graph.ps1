@@ -31,6 +31,7 @@ function Send-GraphMail {
     $mailBody = @{
         message = @{
             subject = $Subject
+            importance = 'high'
             body = @{
                 contentType = 'HTML'
                 content = $BodyHtml

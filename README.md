@@ -7,7 +7,7 @@ PowerShell script that finds Active Directory users whose password is about to e
 - Windows with PowerShell 5.1 or higher
 - RSAT module `ActiveDirectory` (`Install-WindowsFeature RSAT-AD-PowerShell`)
 - The `EmailAddress` attribute must be populated in AD
-- Azure AD app registration with the application permission **`Mail.Send`** (admin consent granted) for Microsoft Graph
+- Azure AD app registration with the application permission **`Mail.Send`**
 - Network access to `login.microsoftonline.com` and `graph.microsoft.com`
 
 ## Installation

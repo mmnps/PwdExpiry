@@ -54,7 +54,7 @@ if (-not $ClientSecret) { $MissingSettings += 'MailConfig.ClientSecret (or $env:
 if (-not $FromUser)     { $MissingSettings += 'MailConfig.FromUser' }
 
 if ($MissingSettings.Count -gt 0) {
-    Write-Error "Missing required configuration value(s): $($MissingSettings -join ', ')"
+    Write-Error "Missing required configuration values: $($MissingSettings -join ', ')"
     exit 1
 }
 

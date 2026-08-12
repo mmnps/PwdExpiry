@@ -32,7 +32,7 @@ Copy-Item .\Settings\AdminTemplate.html.example .\Settings\AdminTemplate.html
 
 Then fill in `Settings\config.psd1` with your own values (see below).
 
-You can create a custom HTML template by editing the `Settings\Template.html`.
+You can create a custom HTML template by editing the `Settings\UserTemplate.html`.
 
 ## Update
 

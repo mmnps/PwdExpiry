@@ -43,23 +43,6 @@ cd C:\Scripts\PwdExpiry
 git pull
 ```
 
-## Configuration (`Settings/config.psd1`)
-
-| Key                             | Description                                                                 |
-|---------------------------------|-----------------------------------------------------------------------------|
-| `ExpireDays`                    | Number of days before expiry at which the notification is sent              |
-| `CheckForUpdates`               | Automatically checks for updates                                            |
-| `MailConfig.TenantId`           | Azure AD tenant ID                                                          |
-| `MailConfig.ClientId`           | App registration (client) ID                                                |
-| `MailConfig.ClientSecret`       | App registration client secret (optional, see below)                        |
-| `MailConfig.FromUser`           | Sender mailbox, e.g. `support@company.com`                                  |
-| `MailConfig.NotifyAdmin`        | If the admin gets a notification when an error occurrs                      |
-| `MailConfig.AdminMail`          | The mail address from the admin                                             | 
-| `LogConfig.EnableLogging`       | Enable logging (`$true`/`$false`)                                           |
-| `LogConfig.LogPath`             | Directory for log files (blank = a `Logs` folder next to the script)        |
-| `LogConfig.DeleteLogs`          | Delete log files automatically (`$true`/`$false`)                           |
-| `LogConfig.KeepLogsDays`        | Number of days after which log files are deleted                            |
-
 ### Client secret without plaintext in the file
 
 Instead of entering the secret in `config.psd1`, it can be set as an environment variable:
